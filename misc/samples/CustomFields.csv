@@ -1,0 +1,72 @@
+name	description	label	type	default	options	required	readonly	strict	isArray	broadcastChanges	entityTypeId
+comp_status	Progress status of shot	Progress status	Select	WIP	WIP,PAF,Final,Stereo	true	false	true	false	true	shots
+production_status	Production status of shot	Production status	Select	Bid	Bid,Awarded,Hold,Ommitted	true	false	true	false	true	shots
+lineups	Lineups, browse botton for file upload	Lineups	string			false	false	true	false	false	shots
+source_length	Source Length	Source Length	number			false	false	true	false	false	shots
+cut_length	Cut Length	Cut Length	number			false	false	true	false	false	shots
+in_frame	In Frame	In Frame	number			false	false	true	false	false	shots
+out_frame	Out Frame	Out Frame	number			false	false	true	false	false	shots
+head_frames	Head Frames	Head Frames	number			false	false	true	false	false	shots
+tail_frames	Tail Frames	Tail Frames	number			false	false	true	false	false	shots
+description	Description	Description	string			false	false	true	false	false	shots
+general_scope	General Scopr Ol	General Scopr Ol	Select	NONE	NONE,LOW,MEDIUM,HIGH,URGENT,CRUCIAL	false	false	true	false	false	shots
+project_resolution	Project Resolution	Project Resolution	Select		2k_Super35_24p,HDTV_1080_2398,4k_Super35_24p,PAL_50,NTSC_5994	true	false	true	false	false	projects
+colorspace_settings	Colorspace Settings	Colorspace Settings	Select		AlexaV3LogC,Slog3,Slog2	true	false	true	false	false	projects
+3d_resolution	3d Resolution	3d Resolution	Select		ViperANA_2k 1920 1080 2.37,Super35_4K 4096 3112 1.316,Super35_2K 2048 1556 1.316	true	false	true	false	false	projects
+supervisor	Supervisor	Supervisor	string			false	false	true	false	true	projects
+2d_supervisor	2D Supervisor	2D Supervisor	string			false	false	true	false	true	projects
+3d_supervisor	3D Supervisor	3D Supervisor	string			false	false	true	false	true	projects
+2d_lead	2D Lead	2D Lead	string			false	false	true	false	true	projects
+3d_lead	3D Lead	3D Lead	string			false	false	true	false	true	projects
+producer	Producer	Producer	string			false	false	true	false	true	projects
+coordinator	Coordinator	Coordinator	string			false	false	true	false	true	projects
+email_list	Email List	Email List	string			false	false	true	false	true	projects
+aspect_ratio	Aspect Ratio	Aspect Ratio	string			false	false	true	false	true	projects
+protection_ratio	Protection Ratio	Protection Ratio	string			false	false	true	false	true	projects
+frame_rate	Frame Rate	Frame Rate	string			false	false	true	false	true	projects
+lut_file	LUT File	LUT File	file			false	false	true	false	true	projects
+3d_lut_file	3D LUT File	3D LUT File	file			false	false	true	false	true	projects
+aspect	Aspect	Aspect	string			false	false	true	false	true	projects
+aspect_offset	Aspect Offset	Aspect Offset	string			false	false	true	false	true	projects
+protect	Protect	Protect	string			false	false	true	false	true	projects
+protect_offset	Protect Offset	Protect Offset	number			false	false	true	false	true	projects
+studio	Studio	Studio	string			false	false	true	false	true	projects
+studio_contact	Studio Contact	Studio Contact	string			false	false	true	false	true	projects
+project_root	Project Root	Project Root	string			true	false	true	false	true	vitality
+project_resolution	Project Resolution	Project Resolution	Select		2k_Super35_24p,HDTV_1080_2398,4k_Super35_24p,PAL_50,NTSC_5994	true	false	true	false	false	vitality
+grouping	Grouping	Grouping	Select	bldg	bldg,char,crwd,lidr,mtpg,prop,stmd,vehi	true	false	true	false	true	assets
+comp_status	Comp Status	Comp Status	Select	Unassigned	Unassigned,Waiting,Ready,In-Progress,In-Review,Revise,Approve	true	false	true	false	true	assets
+prod_status	Production Status	Production Status	Select	NONE	NONE,LOW,MEDIUM,HIGH,URGENT,CRUCIAL	false	false	true	false	true	assets
+grouping	Grouping	Grouping	Select	bldg	bldg,char,crwd,lidr,mtpg,prop,stmd,vehi	true	false	true	false	true	model
+comp_status	Comp Status	Comp Status	Select	Unassigned	Unassigned,Waiting,Ready,In-Progress,In-Review,Revise,Approve	true	false	true	false	true	model
+prod_status	Production Status	Production Status	Select	NONE	NONE,LOW,MEDIUM,HIGH,URGENT,CRUCIAL	true	false	true	false	true	model
+inputStartFrame	The start frame from the original plate import.	Input start frame	number			false	false	true	false	true	plates
+startFrame	The current start frame, usually changed from the input start frame post-import.	Start frame	number			true	false	true	false	true	plates
+endFrame	The end frame.	End frame	number			false	false	true	false	true	plates
+inputColorSpace	The color space of the plate prior to import.	Input color space	string			false	false	true	false	true	plates
+inputX	The horizontal size of the image.	InputX	number			false	false	true	false	true	plates
+inputY	The vertical size of the image.	InputY	number			false	false	true	false	true	plates
+head	The head.	Head	number			true	false	true	false	true	plates
+tail	The tail.	Tail	number			true	false	true	false	true	plates
+grouping	Grouping	Grouping	Select	bldg	bldg,char,crwd,lidr,mtpg,prop,stmd,vehi	true	false	true	false	true	matte
+comp_status	Comp Status	Comp Status	Select	Unassigned	Unassigned,Waiting,Ready,In-Progress,In-Review,Revise,Approve	true	false	true	false	true	matte
+prod_status	Production Status	Production Status	Select	NONE	NONE,LOW,MEDIUM,HIGH,URGENT,CRUCIAL	false	false	true	false	true	matte
+grouping	Grouping	Grouping	Select	bldg	bldg,char,crwd,lidr,mtpg,prop,stmd,vehi	true	false	true	false	true	texture
+comp_status	Comp Status	Comp Status	Select	Unassigned	Unassigned,Waiting,Ready,In-Progress,In-Review,Revise,Approve	true	false	true	false	true	texture
+prod_status	Production Status	Production Status	Select	NONE	NONE,LOW,MEDIUM,HIGH,URGENT,CRUCIAL	false	false	true	false	true	texture
+grouping	Grouping	Grouping	Select	bldg	bldg,char,crwd,lidr,mtpg,prop,stmd,vehi	true	false	true	false	true	rig
+comp_status	Comp Status	Comp Status	Select	Unassigned	Unassigned,Waiting,Ready,In-Progress,In-Review,Revise,Approve	true	false	true	false	true	rig
+prod_status	Production Status	Production Status	Select	NONE	NONE,LOW,MEDIUM,HIGH,URGENT,CRUCIAL	false	false	true	false	true	rig
+grouping	Grouping	Grouping	Select	bldg	bldg,char,crwd,lidr,mtpg,prop,stmd,vehi	true	false	true	false	true	lookdev
+comp_status	Comp Status	Comp Status	Select	Unassigned	Unassigned,Waiting,Ready,In-Progress,In-Review,Revise,Approve	true	false	true	false	true	lookdev
+prod_status	Production Status	Production Status	Select	NONE	NONE,LOW,MEDIUM,HIGH,URGENT,CRUCIAL	true	false	true	false	true	lookdev
+char_rig	Charactor rig	Charactor rig	string			false	false	true	false	true	lookdev
+grouping	Grouping	Grouping	Select	bldg	bldg,char,crwd,lidr,mtpg,prop,stmd,vehi	true	false	true	false	true	camera
+comp_status	Comp Status	Comp Status	Select	Unassigned	Unassigned,Waiting,Ready,In-Progress,In-Review,Revise,Approve	true	false	true	false	true	camera
+prod_status	Production Status	Production Status	Select	NONE	NONE,LOW,MEDIUM,HIGH,URGENT,CRUCIAL	false	false	true	false	true	camera
+grouping	Grouping	Grouping	Select	bldg	bldg,char,crwd,lidr,mtpg,prop,stmd,vehi	true	false	true	false	true	roto
+comp_status	Comp Status	Comp Status	Select	Unassigned	Unassigned,Waiting,Ready,In-Progress,In-Review,Revise,Approve	true	false	true	false	true	roto
+prod_status	Production Status	Production Status	Select	NONE	NONE,LOW,MEDIUM,HIGH,URGENT,CRUCIAL	false	false	true	false	true	roto
+grouping	Grouping	Grouping	Select	bldg	bldg,char,crwd,lidr,mtpg,prop,stmd,vehi	true	false	true	false	true	compositing
+comp_status	Comp Status	Comp Status	Select	Unassigned	Unassigned,Waiting,Ready,In-Progress,In-Review,Revise,Approve	true	false	true	false	true	compositing
+prod_status	Production Status	Production Status	Select	NONE	NONE,LOW,MEDIUM,HIGH,URGENT,CRUCIAL	false	false	true	false	true	compositing

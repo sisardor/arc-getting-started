@@ -1,0 +1,10 @@
+name	parent	project	category	type	priority	status	description	fileImportPath	custom_fields
+apo-001	geostorm	geostorm	groups	shots	none	idle			production_status:Bid;comp_status:WIP;
+apo-002	geostorm	geostorm	groups	shots	none	idle			production_status:Bid;comp_status:WIP;
+Camera v2	apo-001	geostorm	tasks	camera	none	idle			comp_status:Waiting;grouping:bldg;
+plate-afg-010-2	apo-001	geostorm	tasks	plates	none	idle		/geostorm/HoudiniTest_Sphere_Render.%04d.exr	inputStartFrame:110;startFrame:1001;endFrame:3400;inputColorSpace:Linear;inputX:1080;inputY:720;head:24;tail:328;
+humvee2	apo-002	geostorm	assets	assets	none	idle			comp_status:Waiting;grouping:bldg;
+apo-003	geostorm	geostorm	groups	shots	none	idle			production_status:Bid;comp_status:WIP;
+apo-004	geostorm	geostorm	groups	shots	none	idle			production_status:Bid;comp_status:WIP;
+Rigging2	humvee2	geostorm	tasks	rig	none	idle			grouping:bldg;comp_status:Unassigned;prod_status:NONE;
+Matte2	humvee2	geostorm	tasks	matte	urgent	completed			grouping:bldg;comp_status:Unassigned;prod_status:NONE;

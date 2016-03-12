@@ -1,0 +1,14 @@
+entityTypeId	legend	inputs
+projects	Hydraulx Personnel	supervisor,2d_supervisor,3d_supervisor,2d_lead,3d_lead,producer,coordinator
+projects	Technical Info	aspect_ratio,protection_ratio,frame_rate,lut_file,3d_lut_file,aspect,aspect_offset,protect,protect_offset
+projects	Studio Personnel	studio,studio_contact
+projects	Project Setting	3d_resolution,project_resolution,colorspace_settings
+matte	Task Info	grouping,comp_status,prod_status
+texture	Task Info	grouping,comp_status,prod_status
+shots	Shot Info	comp_status,production_status
+shots	Cut Details	source_length,cut_length,in_frame,out_frame,head_frames,tail_frames
+assets	Asset Info	comp_status,prod_status
+plates	Color and Frame	inputStartFrame,startFrame,endFrame,inputColorSpace
+plates	Input Setting	inputX,inputY,head,tail,
+compositing	Compositing Info	grouping,comp_status,prod_status
+roto	Roto Info	grouping,comp_status,prod_status

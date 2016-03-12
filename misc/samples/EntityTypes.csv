@@ -1,0 +1,18 @@
+NAME	LABEL	DESCRIPTION	CATEGORY	SUBSCRIPTIONS
+projects	Movie Projects	Schema for movie projects.	projects	ALL
+shots	Shots	Schema for shots groups.	groups	ALL
+sequence	Sequence	Sequence of shots	groups	ALL
+plates	Plates	Import raw footage supplied by the client.	tasks	NONE
+assets	Generic Asset	Generic asset, asset container, asset folder, etc.	assets	NONE
+lookdev	Lookdev task	Look Dev task.	tasks	texture
+camera	Camera Tracking	Camera tracking task.	tasks	plates
+texture	Texture	Zbrush texture task.	tasks	model
+model	Static 3D Model	A 3D model without movement, e.g. Maya model asset, static 3D model asset.	tasks	matte
+matte	Matte Paintings	A matte painting is a painted representation of a landscape, set, or distant location.	tasks	roto,camera
+rig	Rigging	A digital skeleton bound to the 3D mesh.	tasks	model
+roto	Rotoscoping	Rotoscoping is a technique that allows you to create animation that mimics live action video. 	tasks	camera,plates
+vitality	Vitality Movie Projects	Vitality schema for movie projects	projects	ALL
+compositing	Compositing task	Final compositing of a scene or shot.	tasks	ALL
+anim	Animation	Animating a model.	tasks	rig,model,camera
+fx	FX task	Procedural FX, e.g. smoke, dust.	tasks	anim,model,camera
+lighting	Lighting task	Applying lighting to a scene.	tasks	model,anim,fx,camera
