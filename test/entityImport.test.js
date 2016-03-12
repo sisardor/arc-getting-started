@@ -1,33 +1,51 @@
 'use strict'
 var chai = require('chai')
-  , expect = chai.expect
-  , sinon = require('sinon')
-  , should = require('should')
-  , assert = chai.assert;
+var expect = chai.expect
+var sinon = require('sinon')
+var should = require('should')
+var assert = chai.assert;
 var constants = require('../common/helpers/constants');
 var fs = require('fs');
 var parse = require('csv-parse');
 var path = require('path');
+var importTool = require('./importTool')
+const projectEntity = {
+  name: 'geostorm',
+  parent: 'root',
+  project: 'geostorm',
+  category: 'projects',
+  type: 'projects',
+  description: 'Feature moive',
+  fileImportPath: '',
+  fields: {
+    priority: 'none',
+    status: 'idle',
+    project_resolution: '2k_Super35_24p',
+    colorspace_settings: 'AlexaV3LogC',
+    '3d_resolution': 'ViperANA_2k 1920 1080 2.37',
+    studio: 'Warner Bros.',
+    studio_contact: 'Mark Brown',
+    supervisor: 'Colin Strause',
+    producer: 'Jeff Atherton'
+   }
+}
 
 
-describe('yourModuleName', function() {
-  var CSV_PATH = path.join(__dirname, './sample_entities.csv');
+describe('importTool (importTool.js)', function() {
   var data = null
-
   before(function(done){
-    var parser = parse({delimiter: '\t',columns: true, auto_parse:true}, function(err, rawData){
+    var input = 'name	parent	project	category	type	priority	status	description	fileImportPath	custom_fields\n'+
+      'geostorm	root	geostorm	projects	projects	none	idle	Feature moive		project_resolution:2k_Super35_24p;colorspace_settings:AlexaV3LogC;3d_resolution:ViperANA_2k 1920 1080 2.37;studio:Warner Bros.;studio_contact:Mark Brown;supervisor:Colin Strause;producer:Jeff Atherton;'
+    parse(input,{delimiter: '\t',columns: true, auto_parse:true}, function(err, rawData){
       data = rawData
       done()
     });
-
-    fs.createReadStream(CSV_PATH).pipe(parser);
   });
   beforeEach(function(){
     // The beforeEach() callback gets run before each test in the suite.
   });
 
-  it('parsedData', function(){
-    processDate(data)
+  it('should parse csv to json', function(){
     expect(data).to.be.instanceof(Array);
     expect(data).to.have.deep.property('[0].name');
     expect(data[0]).to.have.property('project');
@@ -41,104 +59,58 @@ describe('yourModuleName', function() {
     // delete fields[0].options
     fields[0].should.have.properties('name', 'options')
 
-    var res = setFields(data, constants.CONST_FIELDS, fields)
+    var res = importTool.parseFields(data, constants.CONST_FIELDS, fields)
     // console.log(res)
-  });
-
+  })
   it('should throw error when args are wrong', function(){
-    expect( () => setFields({}, 'key',  [{ name: 'test', options:{} }])  ).to.throw(TypeError, /Expected an array/);
-    expect( () => setFields([], null,      [{ name: 'test', options:{} }])  ).to.throw(TypeError, /Expected key to be string/);
-    expect( () => setFields([], 'key',  [{}])  ).to.throw(TypeError, /`options` properties/);
+    expect( () => importTool.parseFields({}, 'key',  [{ name: 'test', options:{} }])  ).to.throw(TypeError, /Expected an array/);
+    expect( () => importTool.parseFields([], null,      [{ name: 'test', options:{} }])  ).to.throw(TypeError, /Expected key to be string/);
+    expect( () => importTool.parseFields([], 'key',  [{}])  ).to.throw(TypeError, /`options` properties/);
   })
-
   it('should not throw error when args are correct', function(){
-    expect( () => setFields([], 'key', [{ name: 'test', options:{} }]) ).to.not.throw();
+    expect( () => importTool.parseFields([], 'key', [{ name: 'test', options:{} }]) ).to.not.throw();
   })
-
   it('should parse correctly', function(){
     var commonFields = constants.CONSTANT_COMMON_FIELDS
     var key = constants.CONST_FIELDS
-    var res = setFields(data, key, commonFields);
+    var res = importTool.parseFields(data, key, commonFields);
     // console.log(res)
-    expect(res).to.have.deep.property('[0].fields.status')
+    expect(res).to.have.deep.property('[0].fields.status', 'idle')
     expect(res).to.have.deep.property('[0].fields.priority')
+    expect(res).to.have.deep.property('[0].fields.project_resolution', '2k_Super35_24p')
+    expect(res).to.have.deep.property('[0].fields.colorspace_settings')
+    expect(res).to.have.deep.property('[0].fields.studio')
   })
+  it('should omit "custom_fields, status, priority" from parsed data', function() {
+    var commonFields = constants.CONSTANT_COMMON_FIELDS
+    var key = constants.CONST_FIELDS
+    var res = importTool.parseFields(data, key, commonFields);
+    expect(res).to.have.not.deep.property('[0].custom_fields')
+    expect(res).to.have.not.deep.property('[0].status')
+    expect(res).to.have.not.deep.property('[0].priority')
+  })
+  it('should contain all property keys and equal values', function() {
+    var commonFields = constants.CONSTANT_COMMON_FIELDS
+    var key = constants.CONST_FIELDS
+    var res = importTool.parseFields(data, key, commonFields);
+    res[0].should.eql(projectEntity)
+  })
+  it('should parse the string to json, importTool.parseCustomField(str)', function() {
+    var res = importTool.parseCustomField('project_resolution:2k_Super35_24p;colorspace_settings:AlexaV3LogC;;');
+    res.should.eql({ project_resolution: '2k_Super35_24p',colorspace_settings: 'AlexaV3LogC' })
+  })
+  it('should fail to parse string to json')
+  it('should throw error when input is incorrect')
+  it('should validate')
 
   after(function() {
-
   });
 });
 
 
 function processDate(array) {
   // console.log('%j',array[0])
-  array = setFields(array, constants.CONST_FIELDS, constants.CONSTANT_COMMON_FIELDS)
+  array = importTool.parseFields(array, constants.CONST_FIELDS, constants.CONSTANT_COMMON_FIELDS)
 
   return array
 }
-
-
-var slug = require('slug');
-var _ = require('lodash')
-var _pick = require('lodash/pick')
-var _omit = require('lodash/omit')
-
-function setFields(array, key, COMMON_FIELDS) {
-  if (!Array.isArray(array)) {
-    throw new TypeError('Expected an array');
-  } else if (typeof key !== 'string') {
-    throw new TypeError('Expected key to be string');
-  } else if (!Array.isArray(COMMON_FIELDS)) {
-    throw new TypeError('Expected COMMON_FIELDS to be array');
-  } else if (!COMMON_FIELDS.every(function(t) { return t.hasOwnProperty('name') && t.hasOwnProperty('options')}) ) {
-    throw new TypeError('Expected COMMON_FIELDS to be array of object with `name` & `options` properties');
-  }
-
-  const _fields = COMMON_FIELDS.map( item => item.name )
-  let newArray = [];
-  for (let i = array.length - 1; i >= 0; i--) {
-    let commonFields = _pick(array[i], _fields)
-    let customFields = parseCustomField(array[i].custom_fields)
-
-    let fields = Object.assign({}, commonFields, customFields)
-    let result = Object.assign({}, array[i], { [key] : fields })
-    let entity = _omit(result, _fields, 'custom_fields')
-
-    newArray.push(entity)
-  }
-
-  return newArray;
-}
-
-function parseCustomField(str) {
-  if (!str || str === '' || typeof str !== 'string') {
-    return {} //throw new TypeError('Cannot be null or empty');
-  }
-
-  let fields = str.split(/[,;]/)
-  if(fields[fields.length-1] === '') {
-    fields.pop()
-  }
-
-  return fields
-    .map(function(_field) {
-      let field = _field.split(':')
-      if(field.length !== 2) {
-        return {};
-      }
-      let newField = {}
-      let prop = field[0];
-      let value = field[1];
-
-      if(!isNaN(value)) {
-        value = parseInt(value);
-      }
-      newField[prop] = value;
-      return newField;
-    })
-    .reduce(function(pValue, cValue) {
-      return _.assign(pValue, cValue)
-    });
-
-}
-
