@@ -1,0 +1,404 @@
+zeromax$ ab -n 100 -c 5 -C NO_CACHE=1 'http://127.0.0.1:3000/api/Entities/?filter[where][category]=assets&filter[includeProgress]=status'
+This is ApacheBench, Version 2.3 <$Revision: 1604373 $>
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking 127.0.0.1 (be patient).....done
+
+
+Server Software:
+Server Hostname:        127.0.0.1
+Server Port:            3000
+
+Document Path:          /api/Entities/?filter[where][category]=assets&filter[includeProgress]=status
+Document Length:        3249 bytes
+
+Concurrency Level:      5
+Time taken for tests:   1.495 seconds
+Complete requests:      100
+Failed requests:        0
+Total transferred:      360600 bytes
+HTML transferred:       324900 bytes
+Requests per second:    66.90 [#/sec] (mean)
+Time per request:       74.734 [ms] (mean)
+Time per request:       14.947 [ms] (mean, across all concurrent requests)
+Transfer rate:          235.60 [Kbytes/sec] received
+
+Connection Times (ms)
+							min  mean[+/-sd] median   max
+Connect:        0    0   0.1      0       1
+Processing:    26   74  16.2     70     110
+Waiting:       24   68  15.6     65     109
+Total:         26   74  16.2     70     110
+
+Percentage of the requests served within a certain time (ms)
+	50%     70
+	66%     72
+	75%     73
+	80%     74
+	90%    106
+	95%    110
+	98%    110
+	99%    110
+ 100%    110 (longest request)
+============================================================================================================
+zeromax$ ab -n 100 -c 5 -C NO_CACHE=1 'http://127.0.0.1:3000/api/Entities/?filter[where][category]=assets'
+This is ApacheBench, Version 2.3 <$Revision: 1604373 $>
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking 127.0.0.1 (be patient).....done
+
+
+Server Software:
+Server Hostname:        127.0.0.1
+Server Port:            3000
+
+Document Path:          /api/Entities/?filter[where][category]=assets
+Document Length:        1808 bytes
+
+Concurrency Level:      5
+Time taken for tests:   0.349 seconds
+Complete requests:      100
+Failed requests:        0
+Total transferred:      216500 bytes
+HTML transferred:       180800 bytes
+Requests per second:    286.40 [#/sec] (mean)
+Time per request:       17.458 [ms] (mean)
+Time per request:       3.492 [ms] (mean, across all concurrent requests)
+Transfer rate:          605.53 [Kbytes/sec] received
+
+Connection Times (ms)
+							min  mean[+/-sd] median   max
+Connect:        0    0   0.0      0       0
+Processing:     5   17   2.7     17      24
+Waiting:        5   17   2.7     17      24
+Total:          5   17   2.7     17      24
+
+Percentage of the requests served within a certain time (ms)
+	50%     17
+	66%     18
+	75%     19
+	80%     20
+	90%     21
+	95%     22
+	98%     22
+	99%     24
+ 100%     24 (longest request)
+============================================================================================================
+ab -n 100 -c 5 -C NO_CACHE=1 'http://127.0.0.1:3000/api/Entities/?filter[where][category]=assets&filter[includeProgress]=status'
+
+
+This is ApacheBench, Version 2.3 <$Revision: 1604373 $>
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking 127.0.0.1 (be patient).....done
+
+
+Server Software:
+Server Hostname:        127.0.0.1
+Server Port:            3000
+
+Document Path:          /api/Entities/?filter[where][category]=assets&filter[includeProgress]=status
+Document Length:        3728 bytes
+
+Concurrency Level:      5
+Time taken for tests:   1.196 seconds
+Complete requests:      100
+Failed requests:        0
+Total transferred:      408500 bytes
+HTML transferred:       372800 bytes
+Requests per second:    83.61 [#/sec] (mean)
+Time per request:       59.801 [ms] (mean)
+Time per request:       11.960 [ms] (mean, across all concurrent requests)
+Transfer rate:          333.54 [Kbytes/sec] received
+
+Connection Times (ms)
+							min  mean[+/-sd] median   max
+Connect:        0    0   0.0      0       0
+Processing:    26   59  17.5     57     148
+Waiting:       25   56  16.9     53     141
+Total:         26   59  17.5     57     148
+
+Percentage of the requests served within a certain time (ms)
+	50%     57
+	66%     60
+	75%     61
+	80%     62
+	90%     91
+	95%     95
+	98%    102
+	99%    148
+ 100%    148 (longest request)
+ ============================================================================================================
+ ab -n 100 -c 5 -C NO_CACHE=1 'http://127.0.0.1:3000/api/Entities/?filter[where][category]=assets&filter[includeProgress]=status'
+
+
+This is ApacheBench, Version 2.3 <$Revision: 1604373 $>
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking 127.0.0.1 (be patient).....done
+
+
+Server Software:
+Server Hostname:        127.0.0.1
+Server Port:            3000
+
+Document Path:          /api/Entities/?filter[where][category]=assets&filter[includeProgress]=status
+Document Length:        9772 bytes
+
+Concurrency Level:      5
+Time taken for tests:   4.008 seconds
+Complete requests:      100
+Failed requests:        0
+Total transferred:      1013000 bytes
+HTML transferred:       977200 bytes
+Requests per second:    24.95 [#/sec] (mean)
+Time per request:       200.413 [ms] (mean)
+Time per request:       40.083 [ms] (mean, across all concurrent requests)
+Transfer rate:          246.81 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.1      0       0
+Processing:    72  198  39.6    194     301
+Waiting:       68  192  38.5    191     289
+Total:         72  198  39.6    194     301
+
+Percentage of the requests served within a certain time (ms)
+  50%    194
+  66%    201
+  75%    204
+  80%    206
+  90%    279
+  95%    285
+  98%    301
+  99%    301
+ 100%    301 (longest request)
+============================================================================================================
+ab -n 1000 -c 5 -C NO_CACHE=1 'http://127.0.0.1:3000/api/Entities/?filter[where][category]=assets&filter[includeProgress]=status'
+This is ApacheBench, Version 2.3 <$Revision: 1604373 $>
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking 127.0.0.1 (be patient)
+Completed 100 requests
+Completed 200 requests
+Completed 300 requests
+Completed 400 requests
+Completed 500 requests
+Completed 600 requests
+Completed 700 requests
+Completed 800 requests
+Completed 900 requests
+Completed 1000 requests
+Finished 1000 requests
+
+
+Server Software:
+Server Hostname:        127.0.0.1
+Server Port:            3000
+
+Document Path:          /api/Entities/?filter[where][category]=assets&filter[includeProgress]=status
+Document Length:        9772 bytes
+
+Concurrency Level:      5
+Time taken for tests:   36.393 seconds
+Complete requests:      1000
+Failed requests:        0
+Total transferred:      10130000 bytes
+HTML transferred:       9772000 bytes
+Requests per second:    27.48 [#/sec] (mean)
+Time per request:       181.967 [ms] (mean)
+Time per request:       36.393 [ms] (mean, across all concurrent requests)
+Transfer rate:          271.82 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.1      0       0
+Processing:    84  181  30.6    181     400
+Waiting:       80  178  29.0    178     376
+Total:         84  182  30.6    181     400
+
+Percentage of the requests served within a certain time (ms)
+  50%    181
+  66%    185
+  75%    188
+  80%    194
+  90%    214
+  95%    243
+  98%    268
+  99%    276
+ 100%    400 (longest request)
+============================================================================================================
+
+
+ab -n 1000 -c 5 -C NO_CACHE=1 'http://127.0.0.1:3000/api/Entities/?filter[where][category]=assets&filter[includeProgress]=status'
+This is ApacheBench, Version 2.3 <$Revision: 1604373 $>
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking 127.0.0.1 (be patient)
+Completed 100 requests
+Completed 200 requests
+Completed 300 requests
+Completed 400 requests
+Completed 500 requests
+Completed 600 requests
+Completed 700 requests
+Completed 800 requests
+Completed 900 requests
+Completed 1000 requests
+Finished 1000 requests
+
+
+Server Software:
+Server Hostname:        127.0.0.1
+Server Port:            3000
+
+Document Path:          /api/Entities/?filter[where][category]=assets&filter[includeProgress]=status
+Document Length:        32012 bytes
+
+Concurrency Level:      5
+Time taken for tests:   47.300 seconds
+Complete requests:      1000
+Failed requests:        0
+Total transferred:      32371000 bytes
+HTML transferred:       32012000 bytes
+Requests per second:    21.14 [#/sec] (mean)
+Time per request:       236.500 [ms] (mean)
+Time per request:       47.300 [ms] (mean, across all concurrent requests)
+Transfer rate:          668.34 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.0      0       1
+Processing:   143  236  39.2    227     449
+Waiting:      143  235  39.1    225     447
+Total:        143  236  39.2    227     449
+
+Percentage of the requests served within a certain time (ms)
+  50%    227
+  66%    237
+  75%    247
+  80%    259
+  90%    279
+  95%    320
+  98%    366
+  99%    381
+ 100%    449 (longest request)
+
+============================================================================================================
+
+
+ This is ApacheBench, Version 2.3 <$Revision: 1604373 $>
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking 127.0.0.1 (be patient)
+Completed 100 requests
+Completed 200 requests
+Completed 300 requests
+Completed 400 requests
+Completed 500 requests
+Completed 600 requests
+Completed 700 requests
+Completed 800 requests
+Completed 900 requests
+Completed 1000 requests
+Finished 1000 requests
+
+
+Server Software:
+Server Hostname:        127.0.0.1
+Server Port:            3000
+
+Document Path:          /api/Entities/?filter[where][category]=assets
+Document Length:        25062 bytes
+
+Concurrency Level:      5
+Time taken for tests:   10.946 seconds
+Complete requests:      1000
+Failed requests:        0
+Total transferred:      25421000 bytes
+HTML transferred:       25062000 bytes
+Requests per second:    91.36 [#/sec] (mean)
+Time per request:       54.730 [ms] (mean)
+Time per request:       10.946 [ms] (mean, across all concurrent requests)
+Transfer rate:          2267.95 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.0      0       0
+Processing:    31   54   6.5     54      99
+Waiting:       31   54   6.4     54      98
+Total:         31   55   6.5     54      99
+
+Percentage of the requests served within a certain time (ms)
+  50%     54
+  66%     57
+  75%     58
+  80%     59
+  90%     61
+  95%     63
+  98%     69
+  99%     82
+ 100%     99 (longest request)
+
+============================================================================================================ cache
+
+This is ApacheBench, Version 2.3 <$Revision: 1604373 $>
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking 127.0.0.1 (be patient)
+Completed 100 requests
+Completed 200 requests
+Completed 300 requests
+Completed 400 requests
+Completed 500 requests
+Completed 600 requests
+Completed 700 requests
+Completed 800 requests
+Completed 900 requests
+Completed 1000 requests
+Finished 1000 requests
+
+
+Server Software:
+Server Hostname:        127.0.0.1
+Server Port:            3000
+
+Document Path:          /api/Entities/?filter[where][category]=assets&filter[includeProgress]=status
+Document Length:        172624 bytes
+
+Concurrency Level:      5
+Time taken for tests:   22.545 seconds
+Complete requests:      1000
+Failed requests:        0
+Total transferred:      172985000 bytes
+HTML transferred:       172624000 bytes
+Requests per second:    44.36 [#/sec] (mean)
+Time per request:       112.724 [ms] (mean)
+Time per request:       22.545 [ms] (mean, across all concurrent requests)
+Transfer rate:          7493.13 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.0      0       1
+Processing:   103  112  29.9    109     607
+Waiting:      103  112  29.8    109     606
+Total:        103  112  29.9    109     607
+
+Percentage of the requests served within a certain time (ms)
+  50%    109
+  66%    110
+  75%    111
+  80%    112
+  90%    114
+  95%    116
+  98%    125
+  99%    162
+ 100%    607 (longest request)

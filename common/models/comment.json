@@ -1,0 +1,52 @@
+{
+  "name": "Comment",
+  "base": "Base",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "ReadOnly": {
+      "slug": true,
+      "full_slug": true,
+      "parentId": true
+    }
+  },
+  "properties": {
+    "text": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "string",
+      "required": true,
+      "index": true
+    },
+    "full_slug": {
+      "type": "string",
+      "required": true,
+      "index": true
+    },
+    "parentId": {
+      "type": "any",
+      "required": true,
+      "index": true
+    },
+    "taskVersion": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "author": {
+      "type": "belongsTo",
+      "model": "User",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {},
+  "scope": {
+    "include": ["author", "references"]
+  }
+}

@@ -1,0 +1,188 @@
+// var cookieParser = require('cookie-parser');
+// var session = require('express-session');
+
+// var ClusterStore = require('strong-cluster-connect-store')(session);
+// var RedisStore = require('connect-redis')(session);
+// var store = new RedisStore({ host: '127.0.0.1' }) //new ClusterStore()
+
+// app
+//   .use(cookieParser())
+//   .use(session({
+//     store: store,
+//     secret: 'keyboard cat',
+//     saveUninitialized: true,
+//     resave: true
+//   }));
+
+
+var cluster = require('cluster');
+var control = require('strong-cluster-control');
+// global setup here...
+control.start({
+  size: 2,
+  shutdownTimeout: 5000,
+  terminateTimeout: 5000,
+  throttleDelay: 5000
+}).on('error', function(er) {
+  // don’t need to manually restart the workers
+});
+
+
+
+if (cluster.isMaster) {
+  var _portRedis = 6379, _HostRedis   = 'localhost'
+  // require('strong-cluster-connect-store').setup();
+  console.log('****** isMaster')
+  process.title = 'node master ' + process.pid
+
+
+  cluster.on('online', function(worker) {
+       console.log('Travailleur %s en ligne', worker.id);
+  });
+  cluster.on('listening', function(worker, addr) {
+      console.log('Travailleur %s écoute sur %s:%d', worker.id, addr.address, addr.port);
+  });
+  cluster.on('disconnect', function(worker) {
+      console.log('Travailleur %s déconnecter', worker.id);
+  });
+  cluster.on('exit', function(worker, code, signal) {
+      console.log('Travailleur %s mort (%s)', worker.id, signal || code);
+      if (!worker.suicide) {
+          console.log('Nouveau travailleur %s créer', worker.id);
+          cluster.fork();
+      }
+  });
+}
+
+if (cluster.isWorker) {
+  var _portRedis = 6379, _HostRedis   = 'localhost'
+  var loopback = require('loopback');
+  var boot = require('loopback-boot');
+  var path = require('path')
+  var logger = require('tracer').colorConsole()
+  var app = module.exports = loopback();
+  console.log('****** isWorker')
+  process.title = 'node worker ' + process.pid
+
+  // require('./server-logger')
+  // require('./server-env')()
+  process.umask(0)
+
+  logger.info('%s is running in `%s`', process.title, process.env.NODE_ENV)
+  logger.info('%s is set to umask `%s`', process.title, process.umask())
+
+  // Static variables
+  var STATIC = path.resolve(__dirname, '../client/')
+
+  app.use(loopback.logger('tiny'));
+
+  // Set up the /favicon.ico
+  app.use(loopback.favicon(path.join(STATIC, 'favicon.ico')))
+
+
+  app.set('env', process.env.NODE_ENV || 'development')
+  app.set('version', require('../package.json').version)
+
+  app.engine('html', require('ejs').renderFile)
+  app.set('view engine', 'html')
+  app.set('views', path.resolve(__dirname, '../client'))
+
+  app.locals.ENV = app.get('env')
+  app.locals.VERSION = app.get('version')
+
+  app.use(loopback.compress())
+  app.use(loopback.context())
+  app.use(loopback.token())
+
+
+  app.use(function (req, res, next) {
+
+    if (!req.accessToken) { return next(); }
+    logger.info('setting current-user middleware')
+
+    app.models.User.findById(req.accessToken.userId, function (err, user) {
+      if (err) { return next(err); }
+      if (!user) { return next(new Error('No user with this access token was found.')); }
+      res.locals.currentUser = user
+      var loopbackContext = loopback.getCurrentContext()
+      if (loopbackContext) { loopbackContext.set('currentUser', user); }
+      next()
+    })
+  })
+
+  // -- Mount static files here--
+  // All static middleware should be registered at the end, as all requests
+  // passing the static middleware are hitting the file system
+  app.use(loopback.static(STATIC))
+
+  // app.use(require('./settings/current-user')(app))
+
+  app.start = function() {
+    // start the web server
+    return app.listen(function() {
+      app.emit('started');
+      var baseUrl = app.get('url').replace(/\/$/, '');
+      console.log('Web server listening at: %s', baseUrl);
+      if (app.get('loopback-component-explorer')) {
+        var explorerPath = app.get('loopback-component-explorer').mountPath;
+        console.log('Browse your REST API at %s%s', baseUrl, explorerPath);
+      }
+    });
+  };
+
+
+  var WebSocketServer = require('websocket').server
+  // Bootstrap the application, configure models, datasources and middleware.
+  // Sub-apps like REST API are mounted via boot scripts.
+  boot(app, __dirname, function(err) {
+    if (err) throw err;
+
+    //start the server if `$ node server.js`
+    if (require.main === module) {
+
+
+      wsServer = new WebSocketServer({
+          httpServer: app.start(),
+          // You should not use autoAcceptConnections for production
+          // applications, as it defeats all standard cross-origin protection
+          // facilities built into the protocol and the browser.  You should
+          // *always* verify the connection's origin and decide whether or not
+          // to accept it.
+          autoAcceptConnections: false
+      });
+      function originIsAllowed(origin) {
+        // put logic here to detect whether the specified origin is allowed.
+        return true;
+      }
+
+      wsServer.on('request', function(request) {
+          if (!originIsAllowed(request.origin)) {
+            // Make sure we only accept requests from an allowed origin
+            request.reject();
+            console.log((new Date()) + ' Connection from origin ' + request.origin + ' rejected.');
+            return;
+          }
+
+          var connection = request.accept('echo-protocol', request.origin);
+          console.log((new Date()) + ' Connection accepted.');
+          connection.on('message', function(message) {
+              if (message.type === 'utf8') {
+                  console.log('Received Message@' + process.pid + ': ' + message.utf8Data);
+                  connection.sendUTF(message.utf8Data);
+              }
+              else if (message.type === 'binary') {
+                  console.log('Received Binary Message of ' + message.binaryData.length + ' bytes');
+                  connection.sendBytes(message.binaryData);
+              }
+          });
+          connection.on('close', function(reasonCode, description) {
+              console.log((new Date()) + ' Peer ' + connection.remoteAddress + ' disconnected.');
+          });
+      });
+    }
+  });
+
+  // User ACL setting
+  app.models.User.settings.acls = require('./user-acls.json')
+
+}

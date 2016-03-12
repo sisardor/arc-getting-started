@@ -1,0 +1,21 @@
+{
+  "name": "Action",
+  "base": "Base",
+  "properties": {
+    "command": {
+      "type": "string",
+      "id": true
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

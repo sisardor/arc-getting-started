@@ -1,0 +1,58 @@
+{
+  "name": "Field",
+  "base": "PersistedModel",
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "string"
+    },
+    "label": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "required": true
+    },
+    "default": {
+      "type": "any"
+    },
+    "options": {
+      "type": [
+        "any"
+      ]
+    },
+    "required": {
+      "type": "boolean",
+      "default": false
+    },
+    "readonly": {
+      "type": "boolean",
+      "default": false
+    },
+    "strict": {
+      "type": "boolean",
+      "default": true
+    },
+    "isArray": {
+      "type": "boolean",
+      "default": false
+    },
+    "broadcastChanges": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "validations": [],
+  "relations": {
+    "onUpdate": {
+      "type": "hasAndBelongsToMany",
+      "model": "Action",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

@@ -1,0 +1,99 @@
+{
+  "_meta": {
+    "sources": [
+      "loopback/common/models",
+      "loopback/server/models",
+      "../common/models",
+      "./models"
+    ],
+    "mixins": [
+      "loopback/common/mixins",
+      "loopback/server/mixins",
+      "../common/mixins",
+      "./mixins"
+    ]
+  },
+  "User": {
+    "dataSource": "db"
+  },
+  "AccessToken": {
+    "dataSource": "devMongodb",
+    "public": true
+  },
+  "ACL": {
+    "dataSource": "db",
+    "public": true
+  },
+  "EntityType": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Field": {
+    "dataSource": "db",
+    "public": false
+  },
+  "EntityTypeOnCreate": {
+    "dataSource": "db",
+    "public": false
+  },
+  "EntityTypeOnPublish": {
+    "dataSource": "db",
+    "public": false
+  },
+  "EntityTypeOnUpdate": {
+    "dataSource": "db",
+    "public": false
+  },
+  "EntityTypeOnExecute": {
+    "dataSource": "db",
+    "public": false
+  },
+  "EntityTypeOnDelete": {
+    "dataSource": "db",
+    "public": false
+  },
+  "RoleMapping": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Action": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Fieldset": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Role": {
+    "dataSource": "db",
+    "public": true
+  },
+  "CustomField": {
+    "dataSource": "db",
+    "public": true
+  },
+  "CommonField": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Activity": {
+    "dataSource": "db",
+    "public": true
+  },
+"Media": {
+    "dataSource": "db",
+    "public": true
+  },
+"Objective": {
+    "dataSource": "db",
+    "public": true
+  },
+    "Entity": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Comment": {
+    "dataSource": "db",
+    "public": true
+  }
+}

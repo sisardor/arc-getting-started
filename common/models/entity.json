@@ -1,0 +1,124 @@
+{
+  "name": "Entity",
+  "base": "Base",
+  "scope": {
+    "include": "media"
+  },
+  "hidden": [
+    "parent",
+    "root"
+  ],
+  "mixins": {
+    "ReadOnly": {
+      "name": true,
+      "path": true,
+      "category": true,
+      "type": true,
+      "project": true
+    }
+  },
+  "properties": {
+    "root": {
+      "type": "string",
+      "required": true,
+      "default": "/"
+    },
+    "symlink": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "required": true
+    },
+    "path": {
+      "type": "string",
+      "required": true,
+      "index": {
+        "unique": true
+      }
+    },
+    "name": {
+      "type": "string",
+      "required": true,
+      "index": true
+    },
+    "description": {
+      "type": "string"
+    },
+    "fileImportPath": {
+      "type": "string"
+    },
+    "projectLibrary": {
+      "type": "string"
+    },
+    "project": {
+      "type": "string",
+      "required": true
+    },
+    "fields": {
+      "type": "object",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "activities": {
+      "type": "hasMany",
+      "model": "Activity",
+      "foreignKey": ""
+    },
+    "EntityType": {
+      "type": "belongsTo",
+      "model": "EntityType",
+      "foreignKey": "type",
+      "required": true
+    },
+    "publishes": {
+      "type": "hasMany",
+      "model": "Publish",
+      "foreignKey": ""
+    },
+    "dailies": {
+      "type": "hasMany",
+      "model": "Daily",
+      "foreignKey": ""
+    },
+    "media": {
+      "type": "hasOne",
+      "model": "Media",
+      "foreignKey": ""
+    },
+    "library": {
+      "type": "hasOne",
+      "model": "Library",
+      "foreignKey": "id"
+    },
+    "comments": {
+      "type": "hasMany",
+      "model": "Comment",
+      "foreignKey": ""
+    },
+    "objectives": {
+      "type": "hasMany",
+      "model": "Objective",
+      "foreignKey": ""
+    }
+  },
+  "acls": [
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "coordinator",
+      "permission": "ALLOW",
+      "property": "deleteById"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "admin",
+      "permission": "ALLOW",
+      "property": "deleteById"
+    }
+  ],
+  "methods": {}
+}

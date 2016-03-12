@@ -1,0 +1,9 @@
+{
+  "name": "EntityTypeOnDelete",
+  "base": "PersistedModel",
+  "properties": {},
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

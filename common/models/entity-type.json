@@ -1,0 +1,104 @@
+{
+  "name": "EntityType",
+  "base": "Base",
+  "scope": {
+    "include": "commonFields"
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "id": true,
+      "required": true
+    },
+    "label": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "required": true
+    },
+    "fileImportPath": {
+      "type": "string"
+    },
+    "subdirs": {
+      "type": [
+        "string"
+      ]
+    },
+    "subscriptions": {
+      "type": [
+        "string"
+      ]
+    }
+  },
+  "validations": [],
+  "relations": {
+    "onCreate": {
+      "type": "hasAndBelongsToMany",
+      "model": "Action",
+      "foreignKey": "",
+      "through": "EntityTypeOnCreate"
+    },
+    "onPublish": {
+      "type": "hasAndBelongsToMany",
+      "model": "Action",
+      "foreignKey": "",
+      "through": "EntityTypeOnPublish"
+    },
+    "onUpdate": {
+      "type": "hasAndBelongsToMany",
+      "model": "Action",
+      "foreignKey": "",
+      "through": "EntityTypeOnUpdate"
+    },
+    "onExecute": {
+      "type": "hasAndBelongsToMany",
+      "model": "Action",
+      "foreignKey": "",
+      "through": "EntityTypeOnExecute"
+    },
+    "onDelete": {
+      "type": "hasAndBelongsToMany",
+      "model": "Action",
+      "foreignKey": "",
+      "through": "EntityTypeOnDelete"
+    },
+    "fieldsets": {
+      "type": "hasMany",
+      "model": "Fieldset",
+      "foreignKey": ""
+    },
+    "customFields": {
+      "type": "hasMany",
+      "model": "CustomField",
+      "foreignKey": ""
+    },
+    "commonFields": {
+      "type": "hasAndBelongsToMany",
+      "model": "CommonField"
+    },
+    "entities": {
+      "type": "hasMany",
+      "model": "Entity",
+      "foreignKey": "type"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "WRITE",
+      "principalType": "ROLE",
+      "principalId": "$unauthenticated",
+      "permission": "DENY"
+    }
+  ],
+  "methods": {}
+}

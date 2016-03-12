@@ -1,0 +1,10 @@
+# Updated to enable better control of config via ENV variables in docker deployment.
+
+# was: /mnt_test/x3/projects/test003/client_imports (on local dev box)
+import_directory_path: "$MAVIS_IMPORT_PATH"
+
+# Was: /mnt_test/x3/projects/test003/mavis_scripts (on local dev box)
+scripts_directory_path: "$MAVIS_SCRIPTS_PATH"
+
+# was: /mnt_test/x3/projects/test003 (on local dev box)
+path_prefix: "$MAVIS_PATH_PREFIX"

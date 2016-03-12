@@ -1,0 +1,19 @@
+{
+  "name": "Base",
+  "base": "PersistedModel",
+  "properties": {
+    "createdBy": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "date"
+    },
+    "updatedAt": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

@@ -1,0 +1,26 @@
+{
+  "name": "Media",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "hidden": [
+    "entityId"
+  ],
+  "properties": {
+    "type": {
+      "type":"string"
+    },
+    "uri": {
+      "type":"string"
+    },
+    "path": {
+      "type":"string"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

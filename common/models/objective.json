@@ -1,0 +1,42 @@
+{
+  "name": "Objective",
+  "base": "Base",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "open": {
+      "type": "boolean",
+      "required": true,
+      "default": false
+    },
+    "text": {
+      "type": "string",
+      "required": true
+    },
+    "dailyId": {
+      "type": "any"
+    },
+    "taskVersion": {
+      "type": "string"
+    },
+    "owner": {
+      "type": "any"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "author": {
+      "type": "belongsTo",
+      "model": "User",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {},
+  "scope": {
+    "include": ["author", "references"],
+    "order":"createdAt DESC"
+  }
+}

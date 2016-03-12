@@ -1,0 +1,19 @@
+{
+  "name": "CustomField",
+  "base": "Field",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {
+    "onUpdate": {
+      "type": "hasAndBelongsToMany",
+      "model": "Action",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
