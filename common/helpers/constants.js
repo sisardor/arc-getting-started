@@ -4,6 +4,7 @@ module.exports = Object.freeze({
 	CONST_BOOLEAN: 'Boolean',
 	CONST_NUMBER: 'number',
 	CONST_DATE: 'Date',
+	CUSTOM_FIELDS: 'custom_fields',
 	CONST_JSON: 'JSON',
   SKIP: 2,
   LIMIT: 2,
@@ -144,4 +145,3 @@ module.exports = Object.freeze({
 		}
 	]
 });
-

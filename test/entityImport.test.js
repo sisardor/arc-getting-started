@@ -96,11 +96,16 @@ describe('importTool (importTool.js)', function() {
     res[0].should.eql(projectEntity)
   })
   it('should parse the string to json, importTool.parseCustomField(str)', function() {
-    var res = importTool.parseCustomField('project_resolution:2k_Super35_24p;colorspace_settings:AlexaV3LogC;;');
+    var res = importTool.parseCustomField('project_resolution:2k_Super35_24p,colorspace_settings:AlexaV3LogC;;');
     res.should.eql({ project_resolution: '2k_Super35_24p',colorspace_settings: 'AlexaV3LogC' })
   })
-  it('should fail to parse string to json')
-  it('should throw error when input is incorrect')
+  it('should fail when input is null or empty - parseCustomField()', () => {
+    var str = ''
+    expect( () => importTool.parseCustomField('') ).to.throw(TypeError, /Cannot be null or empty/)
+    expect( () => importTool.parseCustomField() ).to.throw(TypeError, /Cannot be null or empty/)
+    expect( () => importTool.parseCustomField(null) ).to.throw(TypeError, /Cannot be null or empty/)
+    expect( () => importTool.parseCustomField(undefined) ).to.throw(TypeError, /Cannot be null or empty/)
+  })
   it('should validate')
 
   after(function() {

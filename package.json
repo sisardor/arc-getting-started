@@ -2,6 +2,11 @@
   "name": "arc-getting-started",
   "version": "1.0.0",
   "main": "server/server.js",
+  "standard": {
+    "ignore": [
+      "test/*.test.js"
+    ]
+  },
   "scripts": {
     "postinstall": "ls",
     "build": "gulp build",
@@ -17,6 +22,7 @@
     "cors": "^2.5.2",
     "csv-parse": "^1.0.2",
     "express-session": "^1.13.0",
+    "fs-extra": "^0.26.5",
     "helmet": "^0.14.0",
     "lodash": "^4.6.1",
     "log4js": "^0.6.32",

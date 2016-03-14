@@ -1,11 +1,21 @@
 'use strict'
 var _pick = require('lodash/pick')
 var _omit = require('lodash/omit')
+var _groupBy = require('lodash/groupBy')
 var CONSTS = require('../common/helpers/constants')
 
 module.exports = {
   parseFields: parseFields,
-  parseCustomField: parseCustomField
+  parseCustomField: parseCustomField,
+  groupBy: groupBy,
+  importEntities: importEntities
+}
+
+function importEntities (array) {
+  let result = parseFields(array, CONSTS.CONST_FIELDS,
+    CONSTS.CONSTANT_COMMON_FIELDS)
+  // setCreatedBy(array, constants.CONST_DEMO_USERNAME)
+  return groupBy(result)
 }
 
 /**
@@ -32,7 +42,8 @@ function parseFields (array, key, commonFields) {
   let newArray = []
   for (let i = array.length - 1; i >= 0; i--) {
     const _commonFields = _pick(array[i], requiredCommonFields)
-    const _customFields = parseCustomField(array[i][CONSTS.CUSTOM_FIELDS])
+    const _customFields = (array[i][CONSTS.CUSTOM_FIELDS])
+      ? parseCustomField(array[i][CONSTS.CUSTOM_FIELDS]) : {}
 
     let fields = Object.assign({}, _commonFields, _customFields)
     let result = Object.assign({}, array[i], { [key]: fields })
@@ -53,7 +64,7 @@ function parseFields (array, key, commonFields) {
  */
 function parseCustomField (str) {
   if (!str || str === '' || typeof str !== 'string') {
-    return {} // throw new TypeError('Cannot be null or empty')
+    throw new TypeError('Cannot be null or empty')
   }
 
   let fields = str.split(/[,;]/)
@@ -78,4 +89,8 @@ function parseCustomField (str) {
       return newField
     })
     .reduce((pValue, cValue) => Object.assign(pValue, cValue))
+}
+
+function groupBy (array) {
+  return _groupBy(array, (item) => item.parent)
 }

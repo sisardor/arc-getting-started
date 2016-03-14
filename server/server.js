@@ -82,7 +82,8 @@ var bootOptions = {
     './samples/commonfields.js',
     './samples/entitytypes.js',
     './samples/customfields.js',
-    './samples/fieldsets.js'
+    './samples/fieldsets.js',
+    './samples/entities.js'
   ]
 };
 boot(app, bootOptions, function(err) {

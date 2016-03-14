@@ -663,9 +663,9 @@ module.exports = function (Entity) {
    * @param  {Function} callback called with Error or the new Entity
    */
   Entity.createDependency = function (id, data, isChild, callback) {
-    // console.log('\n\n')
-    // console.log(id, data,isChild)
-    // console.log(Entity.findById)
+    console.log('\n\n')
+    console.log(id, data, isChild)
+    console.log(Entity.findById)
     Entity.findById(id, function (err, entity) {
       if (err) { return callback(err) }
       if (!entity) { return callback(null, null) }

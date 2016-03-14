@@ -1,5 +1,5 @@
 'use strict'
-var _assign = require('lodash/object/assign')
+var _assign = require('lodash/assign')
 const CATEGORY = 'category'
 const CATEGORY_CAP = 'Category'
 const MILESTONE = 'milestone'
