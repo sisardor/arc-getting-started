@@ -6,7 +6,7 @@ var path = require('path')
 var debug = require('debug')('mavis:models:entity')
 var FileManager = require('../../lib/mavis-fs-manager')
 var _ = require('lodash')
-var helpers = require('../helpers/entity-validation')
+// var helpers = require('../helpers/entity-validation')
 var entityRemoteMethods = require('../helpers/entity-remoteMethods')
 var entityRemoteFunctions = require('../helpers/entity-functions')
 var loopback = require('loopback')
@@ -44,21 +44,23 @@ module.exports = function (Entity) {
    * @param  {Object} ctx   strongloop context
    * @param  {Function} next callback
    */
-  Entity.observe('before save', function (ctx, next) {
-    // The context provides either an instance property
-    // or a pair of data and where properties.
-    // Validate existance of type, name, category
-    if (ctx.hasOwnProperty('isNewInstance') && ctx.isNewInstance) {
-      helpers.validateProperties(ctx.Model.app.models, ctx.instance,
-        ctx.instance.type, next)
-    } else if (ctx.hasOwnProperty('isNewInstance') &&
-      !ctx.isNewInstance && ctx.currentInstance) {
-      helpers.validateProperties(ctx.Model.app.models, ctx.data,
-        ctx.currentInstance.type, next)
-    } else {
-      next()
-    }
-  })
+  // Entity.observe('before save', function (ctx, next) {
+  //   console.log(ctx)
+  //   // The context provides either an instance property
+  //   // or a pair of data and where properties.
+  //   // Validate existance of type, name, category
+  //   if (ctx.hasOwnProperty('isNewInstance') && ctx.isNewInstance) {
+  //     helpers.validateProperties(ctx.Model.app.models, ctx.instance,
+  //       ctx.instance.type, next)
+  //   } else if (ctx.hasOwnProperty('isNewInstance') &&
+  //     !ctx.isNewInstance && ctx.currentInstance) {
+  //     helpers.validateProperties(ctx.Model.app.models, ctx.data,
+  //       ctx.currentInstance.type, next)
+  //   } else {
+  //     next()
+  //   }
+  //   console.log(' END -------- ')
+  // })
 
   /**
    * Provision some of the Entity properties. All entities must
@@ -440,17 +442,96 @@ module.exports = function (Entity) {
     }
   }
 
-  Entity.addMilestones = function addMilestones (id, callback) {
-    Entity.getMilestones(id, {}, '', function (err, milestones) {
-      if (err) {
-        logger.error(err)
-        callback(err)
+  Entity.addMilestones = function addMilestones (id, data, callback) {
+    function createLinks (sourceId, targetId) {
+      return {
+        source: {
+          id: sourceId,
+          link_type: 'Milestone'
+        },
+        target: {
+          id: targetId,
+          link_type: 'hierarchy'
+        }
       }
+    }
 
-      logger.info('addMilestones', JSON.stringify(milestones, null, 4))
-      callback()
-    })
+    var modelName = Entity.modelName
+    this.findOne({ where: { id, category: constants.ENTITY_TYPE_PROJECTS } })
+      .then(entity => {
+        var errStatusCode = 200
+        if (!entity) {
+          errStatusCode = 404
+          var messages = {
+            403: {
+              message: 'Access Denied',
+              code: 'ACCESS_DENIED'
+            },
+            404: {
+              message: ('could not find project ' + modelName + ' with id ' + id),
+              code: 'MODEL_NOT_FOUND'
+            },
+            401: {
+              message: 'Authorization Required',
+              code: 'AUTHORIZATION_REQUIRED'
+            }
+          }
+
+          var e = new Error(messages[errStatusCode].message || messages[403].message)
+          e.statusCode = errStatusCode
+          e.code = messages[errStatusCode].code || messages[403].code
+          return callback(e)
+        }
+        Entity.app.models.Milestone.create(data,
+          function functionName (err, milestones) {
+            if (err) {
+              logger.error(err)
+              return callback(err)
+            }
+            let linkData = null
+            if (Array.isArray(milestones)) {
+              linkData = milestones.map(item => createLinks(item.id, entity.id))
+            } else {
+              linkData = createLinks(milestones.id, entity.id)
+            }
+            Entity.app.models.Link.create(linkData, (err, links) => {
+              if (err) {
+                logger.error(err)
+                return callback(err)
+              }
+              return callback(null, milestones)
+            })
+          }
+        )
+      })
+      .catch(callback)
   }
+  Entity.remoteMethod('addMilestones', {
+    description: 'Add milestones to a project',
+    accepts: [{
+      arg: 'id',
+      type: 'any',
+      description: 'Entity id',
+      http: {
+        source: 'path'
+      }
+    }, {
+      arg: 'data',
+      type: 'Milestone',
+      description: 'new milestones',
+      required: true,
+      http: { source: 'body' }
+    }],
+    returns: {
+      arg: 'data',
+      type: 'Milestone',
+      root: true
+    },
+    http: {
+      verb: 'post',
+      path: '/:id/milestones'
+    }
+  })
 
   Entity.remoteMethod('getProgress', entityRemoteMethods.getProgress)
   Entity.getProgress = entityRemoteFunctions.getProgress()
@@ -663,9 +744,9 @@ module.exports = function (Entity) {
    * @param  {Function} callback called with Error or the new Entity
    */
   Entity.createDependency = function (id, data, isChild, callback) {
-    console.log('\n\n')
-    console.log(id, data, isChild)
-    console.log(Entity.findById)
+    // console.log('\n\n')
+    // console.log(id, data, isChild)
+    // console.log(Entity.findById)
     Entity.findById(id, function (err, entity) {
       if (err) { return callback(err) }
       if (!entity) { return callback(null, null) }
@@ -838,6 +919,7 @@ function createEntityDependence (Entity, entity, id, data, isChild, callback) {
 }
 
 function createActivity (verb, instance, modelName, next) {
+  instance.createdBy = 'chris' // FIXME: createdBy should be dynamicly assigned, temp fix
   instance.activities.create({
     subject: instance.createdBy,
     verb: verb,
@@ -864,7 +946,10 @@ function prependArticle (word) {
 
 function propagateActivity (originator, next) {
   return function (err /*, activities*/) {
-    if (err) { return next(err) }
+    if (err) {
+      logger.error(err)
+      return next(err)
+    }
     next()
   }
 }

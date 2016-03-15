@@ -33,6 +33,7 @@
     "loopback-connector-mongodb": "^1.13.3",
     "loopback-datasource-juggler": "^2.39.0",
     "morgan": "^1.7.0",
+    "multer": "^1.1.0",
     "search-query-parser": "0.0.4",
     "serve-favicon": "^2.0.1",
     "slug": "^0.9.1",

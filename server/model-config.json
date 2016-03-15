@@ -17,10 +17,18 @@
     "dataSource": "db"
   },
   "AccessToken": {
-    "dataSource": "devMongodb",
+    "dataSource": "db",
     "public": true
   },
   "ACL": {
+    "dataSource": "db",
+    "public": true
+  },
+  "RoleMapping": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Role": {
     "dataSource": "db",
     "public": true
   },
@@ -28,9 +36,37 @@
     "dataSource": "db",
     "public": true
   },
+  "Action": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Entity": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Publish": {
+    "dataSource": "db",
+    "public": true
+  },
   "Field": {
     "dataSource": "db",
     "public": false
+  },
+  "Activity": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Task": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Daily": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Link": {
+    "dataSource": "db",
+    "public": true
   },
   "EntityTypeOnCreate": {
     "dataSource": "db",
@@ -52,19 +88,19 @@
     "dataSource": "db",
     "public": false
   },
-  "RoleMapping": {
+  "filemeta": {
     "dataSource": "db",
     "public": true
   },
-  "Action": {
+  "Library": {
     "dataSource": "db",
     "public": true
   },
-  "Fieldset": {
+  "EntityACL": {
     "dataSource": "db",
     "public": true
   },
-  "Role": {
+  "Media": {
     "dataSource": "db",
     "public": true
   },
@@ -76,23 +112,43 @@
     "dataSource": "db",
     "public": true
   },
-  "Activity": {
+  "Milestone": {
     "dataSource": "db",
     "public": true
   },
-"Media": {
+  "Fieldset": {
     "dataSource": "db",
     "public": true
   },
-"Objective": {
+  "TaskAssignment": {
     "dataSource": "db",
     "public": true
   },
-    "Entity": {
+  "UserPreference": {
+    "dataSource": "db",
+    "public": true
+  },
+  "UserFilter": {
+    "dataSource": "db",
+    "public": false
+  },
+  "Filter": {
+    "dataSource": "db",
+    "public": true
+  },
+  "container": {
+    "dataSource": "storage",
+    "public": true
+  },
+  "Objective": {
     "dataSource": "db",
     "public": true
   },
   "Comment": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Reference": {
     "dataSource": "db",
     "public": true
   }

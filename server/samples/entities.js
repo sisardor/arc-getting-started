@@ -42,8 +42,9 @@ module.exports = function (app) {
     // logger.info(entity)
     // next(null, entity)
     // return
-    debug('Created `Entity`: `%j`', _entity)
+    // debug('Created `Entity`: `%j`', id)
     if (id !== null) {
+      // debug('Entity.createDependency')
       Entity.createDependency(id, _entity, true, function (err, entity) {
         if (err) return next(err)
         // var entityCategory = entity.category || ''
@@ -59,9 +60,12 @@ module.exports = function (app) {
         next(err, entity)
       })
     } else {
+      // debug('Entity.create', id)
       // Projects don't have a parent ID.
       Entity.create(_entity, function (err, entity) {
-        if (err) return next(err)
+        if (err) {
+          return next(err)
+        }
         // var entityCategory = entity.category || ''
         // if (entityCategory) {
         //   // E.g. provisionedEntities.projects = [{P001}, {P002}, ...]
