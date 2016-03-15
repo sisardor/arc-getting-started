@@ -1,0 +1,41 @@
+{
+  "name": "Link",
+  "base": "PersistedModel",
+  "properties": {
+    "source": {
+      "type": {
+        "id": {
+          "type": "any",
+          "required": true
+        },
+        "link_type": {
+          "type": "string",
+          "required": true
+        }
+      }
+    },
+    "target": {
+      "type": {
+        "id": {
+          "type": "any",
+          "required": true
+        },
+        "link_type": {
+          "type": "string",
+          "required": true
+        }
+      }
+    },
+    "label": {
+      "type": "string"
+    },
+    "weight": {
+      "type": "number",
+      "default": 0.5
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

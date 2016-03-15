@@ -1,0 +1,55 @@
+{
+  "name": "Publish",
+  "base": "Base",
+  "properties": {
+    "root": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "major": {
+      "type": "number",
+      "required": true,
+      "default": 0
+    },
+    "minor": {
+      "type": "number",
+      "required": true,
+      "default": 1
+    },
+    "symlink": {
+      "type": "string"
+    },
+    "path": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "project": {
+      "type": "string"
+    },
+    "isMajorVersion": {
+      "type": "boolean",
+      "default": false
+    },
+    "confirmed": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "validations": [],
+  "relations": {
+    "entity": {
+      "type": "belongsTo",
+      "model": "Entity",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

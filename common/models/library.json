@@ -1,0 +1,33 @@
+{
+  "name": "Library",
+  "base": "Base",
+  "idInjection": true,
+  "properties": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "entities": {
+      "type": "referencesMany",
+      "model": "Entity",
+      "property": "entityIds",
+      "options": {
+        "validate": true,
+        "forceId": false
+      }
+    },
+    "project": {
+      "type": "belongsTo",
+      "model": "Entity",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

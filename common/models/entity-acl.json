@@ -1,0 +1,44 @@
+{
+  "name": "EntityACL",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "roleName": {
+      "type": "string",
+      "required": true
+    },
+    "category": {
+      "type": "string",
+      "required": true
+    },
+    "create": {
+      "type": "boolean",
+      "required": true
+    },
+    "edit": {
+      "type": "boolean",
+      "required": true
+    },
+    "delete": {
+      "type": "boolean",
+      "required": true
+    },
+    "read": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "role": {
+      "type": "belongsTo",
+      "model": "Role",
+      "foreignKey": "roleId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

@@ -1,0 +1,29 @@
+{
+  "name": "Reference",
+  "base": "Base",
+  "idInjection": true,
+  "hidden": [
+    "referableId",
+    "referableType"
+  ],
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "path": {
+      "type": "string",
+      "required": true
+    },
+    "fstat": {
+      "type": "object",
+      "required": true
+    },
+    "thumbnail": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}
