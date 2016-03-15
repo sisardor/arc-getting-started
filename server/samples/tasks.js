@@ -1,61 +1,72 @@
-// var constants = require('../../common/helpers/constants')
+'use strict'
 var logger = require('tracer').colorConsole()
 var debug = require('debug')('mavis:provisioning:Task')
+var constants = require('../../common/helpers/constants')
 
-var fs = require('fs')
-var parse = require('csv-parse')
-var path = require('path')
-
-module.exports = function (app,  cb) {
+module.exports = function (app) {
   var Entity = app.models.Entity
   var User = app.models.User
-  logger.info('hello')
-  cb()
 
-  // Entity.find({})
-  //   .then(entities => {
-  //     User.find({})
-  //       .then(users => {
-  //         logger.info(users)
-  //       })
-  //       .catch(err => {
-  //         logger.error(err)
-  //       })
-  //   })
-  //   .catch(err => {
-  //     logger.error(err)
-  //   })
-  // return
+  Entity.find().then(entities => {
+    User.find().then(users => {
+      if (users.length === 0) {
+        logger.warn('no users')
+      }
+      debug(users, entities.length)
+      functionName(entities, users)
+    }).catch(err => {
+      logger.error(err.stack)
+      throw err
+    })
+  }).catch(err => {
+    logger.error(err)
+  })
 
-//   app.models.User.find({}, function(err, users) {
-//   if (err) {
-//     console.error(err)
-//     return next(err)
-//   }
-//
-//   if (!users || !users.length || users.length == 0) {
-//     log('linkUsersToTasks: no users', users)
-//     next()
-//   }
-//
-//   var task_assginess = []
-//   var groups = provisionedEntities.groups
-//   var tasks = provisionedEntities.tasks
-//
-//   if (tasks && tasks.length && tasks.length !== 0) {
-//
-//     for (var i = 0 i < 10 i++) {
-//       var userId = users[Math.floor(getRandomArbitrary(1,20))].id
-//       var entity = groups[Math.floor(getRandomArbitrary(1,groups.length-1))]
-//
-//       task_assginess.push({entityId: entity.id, project:entity.project, userId: userId})
-//     }
-//     for (var i = 0 i < 40 i++) {
-//       var userId = users[Math.floor(getRandomArbitrary(1,20))].id
-//       var entity = tasks[Math.floor(getRandomArbitrary(1,tasks.length-1))]
-//       task_assginess.push({entityId: entity.id, project:entity.project, userId: userId})
-//     }
-//     app.models.TaskAssignment.create(task_assginess, next)
-//   }
-// })
+  function functionName (entities, users) {
+    const task_assginess = []
+    let groups = entities.filter((item) => item.category ===
+      constants.ENTITY_TYPE_GROUPS)
+    let tasks = entities.filter((item) => item.category ===
+      constants.ENTITY_TYPE_TASKS)
+
+    function randomAssign (array, num) {
+      for (let i = 0; i < users.length; i++) {
+        let userId = users[i].id
+        let average = Math.round(array.length * num)
+        let entity = {}
+        for (let j = 0; j < average; j++) {
+          let tmp_ent = array[Math.floor(_random(1, array.length - 1))]
+          entity[tmp_ent.id] = tmp_ent
+        }
+        for (let key in entity) {
+          task_assginess.push({
+            entityId: key,
+            project: entity[key].project,
+            userId: userId })
+        }
+      }
+    }
+
+    randomAssign(groups, 0.6)
+    randomAssign(tasks, 0.5)
+
+    app.models.TaskAssignment.create(task_assginess, (err, taskAss) => {
+      if (err) {
+        logger.error(err)
+      }
+      debug('Created `TaskAssignment`:', taskAss)
+    })
+  }
 }
+
+function _random (min, max) {
+  return Math.random() * (max - min) + min
+}
+
+// { entityId: 3, project: 'geostorm', userId: 3, id: 2 },
+// { entityId: 3, project: 'geostorm', userId: 1, id: 3 },
+// { entityId: 3, project: 'geostorm', userId: 3, id: 5 },
+// { entityId: 3, project: 'geostorm', userId: 3, id: 6 },
+// { entityId: 3, project: 'geostorm', userId: 3, id: 7 },
+// { entityId: 3, project: 'geostorm', userId: 3, id: 8 },
+// { entityId: 3, project: 'geostorm', userId: 3, id: 9 },

@@ -1,5 +1,5 @@
 var debug = require('debug')('mavis:provisioning:User')
-module.exports = function (app) {
+module.exports = function (app, cb) {
   var User = app.models.User
   var Role = app.models.Role
   // var RoleMapping = app.models.RoleMapping
@@ -11,13 +11,14 @@ module.exports = function (app) {
   ], function (err, users) {
     if (err) throw err
 
-    debug('Created users: %j', users)
+    debug('Created users:')
 
     // create the admin role
     Role.create({
       name: 'admin'
     }, function (err, role) {
       if (err) throw err
+      process.nextTick(cb)
     })
   })
 }

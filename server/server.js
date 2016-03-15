@@ -84,7 +84,8 @@ var bootOptions = {
     './samples/fieldsets.js',
     './samples/entities.js',
     './samples/milestones.js',
-    './samples/users.js'
+    './samples/tasks.js',
+    './samples/actions.js'
   ]
 }
 

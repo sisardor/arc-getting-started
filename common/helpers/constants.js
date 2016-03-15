@@ -6,6 +6,8 @@ module.exports = Object.freeze({
 	CONST_DATE: 'Date',
 	CUSTOM_FIELDS: 'custom_fields',
 	CONST_JSON: 'JSON',
+	_$PLATES: 'plates',
+	_$CAMERA: 'camera',
   SKIP: 2,
   LIMIT: 2,
   ENTITY_TYPE_ASSETS: 'assets',

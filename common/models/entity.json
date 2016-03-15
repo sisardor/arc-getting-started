@@ -78,6 +78,11 @@
       "model": "Publish",
       "foreignKey": ""
     },
+    "assignees": {
+      "type": "hasMany",
+      "model": "User",
+      "through": "TaskAssignment"
+    },
     "dailies": {
       "type": "hasMany",
       "model": "Daily",

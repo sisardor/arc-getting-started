@@ -5,8 +5,9 @@ var debug = require('debug')('mavis:provisioning:Milestone')
 var fs = require('fs')
 var parse = require('csv-parse')
 var path = require('path')
+var constants = require('../../common/helpers/constants')
 
-module.exports = function (app) {
+module.exports = function (app, cb) {
   var Entity = app.models.Entity
 
   var CSV_PATH = path.join(__dirname, '../../misc/samples/Milestones.csv')
@@ -17,19 +18,23 @@ module.exports = function (app) {
     }
 
     var data = rawDate.map((item) => item)
-    Entity.findOne({ where: { category: 'projects' } })
-      .then(entity => {
-        Entity.addMilestones(entity.id, data, function (err, milestones) {
-          if (err) {
-            logger.error('Provisioning ERROR `Milestone`:', err)
-            return
-          }
-          debug('Created `Milestone`: `%j`', milestones)
-        })
+    Entity.findOne({ where: { category: constants.ENTITY_TYPE_PROJECTS } }, (err, entity) => {
+      if (err) {
+        return cb(err)
+      }
+      if (!entity) {
+        logger.error('Entity.findOne returned ' + entity)
+        return process.nextTick(cb)
+      }
+      Entity.addMilestones(entity.id, data, function (err, milestones) {
+        if (err) {
+          logger.error('Provisioning ERROR `Milestone`:', err)
+          return cb(err)
+        }
+        debug('Created `Milestone`:')
+        process.nextTick(cb)
       })
-      .catch(err => {
-        logger.error('Provisioning ERROR `Milestone`:', err)
-      })
+    })
   })
 
   fs.createReadStream(CSV_PATH).pipe(parser)

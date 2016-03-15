@@ -1,24 +1,23 @@
 var constants = require('../../common/helpers/constants')
-var logger = require('tracer').colorConsole()
+// var logger = require('tracer').colorConsole()
 var debug = require('debug')('mavis:provisioning:Entity')
 var importTool = require('../../test/importTool')
 var fs = require('fs')
 var parse = require('csv-parse')
 var path = require('path')
 
-module.exports = function (app) {
+module.exports = function (app, cb) {
   var Entity = app.models.Entity
   debug('Created `Entity`: start')
   var CSV_PATH = path.join(__dirname, '../../misc/samples/Entities.csv')
 
   function createEntities (array) {
     var root = array[constants.CONST_ROOT]
-    debug('Created `Entity`: root', root)
     for (var i = 0; i < root.length; i++) {
       makePostRequest(array, root[i].name, root[i], null)
     }
     setTimeout(function () {
-      // callback()
+      process.nextTick(cb)
     }, 100)
   }
 
@@ -74,7 +73,7 @@ module.exports = function (app) {
         //   }
         //   provisionedEntities[entityCategory].push(entity)
         // }
-        debug('Created `Entity`: `%j`', entity)
+        debug('Created `Entity`:')
         next(err, entity)
       })
     }
@@ -90,8 +89,8 @@ module.exports = function (app) {
   fs.createReadStream(CSV_PATH).pipe(parser)
 }
 
-function setCreatedBy (array, username) {
-  for (var i = array.length - 1; i >= 0; i--) {
-    array[i].createdBy = username
-  }
-}
+// function setCreatedBy (array, username) {
+//   for (var i = array.length - 1; i >= 0; i--) {
+//     array[i].createdBy = username
+//   }
+// }

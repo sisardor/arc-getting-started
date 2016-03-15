@@ -24,12 +24,13 @@ module.exports = function (app) {
       return item
     })
 
-    Fieldset.create(data, { provisioning: true }, (err, entityTypes) => {
+    Fieldset.create(data, { provisioning: true }, (err, fieldset) => {
       if (err) {
         logger.error('Provisioning ERROR `Fieldset`:', err)
-        return
+        return// cb(err)
       }
-      debug('Created `Fieldset`: `%j`', entityTypes)
+      debug('Created `Fieldset`:')
+      // process.nextTick(cb)
     })
   })
 

@@ -20,12 +20,13 @@ module.exports = function (app) {
       return item
     })
 
-    CustomField.create(data, {provisioning: true}, function (err, entityTypes) {
+    CustomField.create(data, {provisioning: true}, function (err, customfields) {
       if (err) {
         logger.error('Provisioning ERROR `CustomField`:', err)
-        return
+        return //cb(err)
       }
-      debug('Created `CustomField`: `%j`', entityTypes)
+      debug('Created `CustomField`:')
+      // process.nextTick(cb)
     })
   })
 

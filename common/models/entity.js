@@ -75,8 +75,10 @@ module.exports = function (Entity) {
 
       if (ctx.instance[constants.CONSTANT_CATEGORY] ===
         constants.ENTITY_TYPE_PROJECTS) {
-        ctx.instance.path = path.join(config.path_prefix,
-          ctx.instance.type, utils.slugify(ctx.instance.name))
+        ctx.instance.path = path.join(
+          config.path_prefix,
+          ctx.instance.type,
+          utils.slugify(ctx.instance.name))
 
         ctx.instance.project = ctx.instance.name
       }
@@ -257,7 +259,7 @@ module.exports = function (Entity) {
       // TODO: handle query in Entity.observe:loaded()
       ctx.hookState.actions.push(action)
     }
-
+    console.log(ctx)
     if (goToNext) {
       next()
     }
@@ -269,10 +271,13 @@ module.exports = function (Entity) {
   ===============================================================
   */
   Entity.observe('loaded', function (ctx, next) {
+
     // {"source.id":"3","source.type":"Entity"}
     if (!ctx.isNewInstance && ctx.hookState.actions &&
       ctx.hookState.actions.length) {
       var parallelTasks = {}
+      logger.info('provision progress')
+      return next()
 
       for (var i = 0; i < ctx.hookState.actions.length; i++) {
         var action = ctx.hookState.actions[i]

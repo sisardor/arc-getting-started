@@ -29,8 +29,10 @@ module.exports = function (app) {
     EntityType.create(data, { provisioning: true }, (err, entityTypes) => {
       if (err) {
         logger.error('Provisioning ERROR `EntityType`:', err)
+        return // cb(err)
       }
-      debug('Created `EntityType`: `%j`', entityTypes)
+      debug('Created `EntityType`:')
+      // process.nextTick(cb)
     })
   })
 
